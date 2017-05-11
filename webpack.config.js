@@ -1,18 +1,28 @@
+import webpack from 'webpack'
 export default {
   entry: [
-    './client/src/index.js'
+    '../client/src/index.js'
   ],
   output: {
     path: `/`,
     publicPath: '/',
-    filename: 'app.js'
+    filename: '[name].js'
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: (module, count) => {
+        return module.resource && module.resource.indexOf('node_modules')
+      }
+    })
+  ],
   module: {
     loaders: [{
-      exclude: /node_modules/,
       loader: 'babel',
+      exclude: /node_modules/,
       query: {
-        presets: ['env']
+        presets: ['es2015', 'es2017', 'react'],
+        plugins: ['transform-object-rest-spread', 'transform-class-properties']
       }
     }]
   },

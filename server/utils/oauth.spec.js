@@ -25,7 +25,7 @@ describe('Oauth session handling', () => {
     }
   })
 
-  it('should skip static resource request', async () => {
+  it('should skip static resource fetch', async () => {
     let nextSpy = jest.fn()
     req.url = 'http://google.pl'
     await authService(req, {}, nextSpy)
@@ -37,7 +37,7 @@ describe('Oauth session handling', () => {
     await authService(req, {}, jest.fn())
     expect(req.user.email).toBe(email)
   })
-  it('should redirect unauthorized request', async () => {
+  it('should redirect unauthorized fetch', async () => {
     await authService(req, res)
     expect(res.writeHead.mock.calls.length).toBe(1)
     expect(res.writeHead.mock.calls[0][0]).toBe(302)

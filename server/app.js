@@ -8,7 +8,7 @@ import router from './router'
 import config from './config'
 import path from 'path'
 import compression from 'compression'
-import webpackConfig from '../webpack.config'
+import webpackConfig from '../webpack.dev.config'
 import webpack from 'webpack'
 import webpackHotMiddelware from 'webpack-hot-middleware'
 import webpackDevMiddelware from 'webpack-dev-middleware'
@@ -27,6 +27,10 @@ app.use(oauth())
 app.use('/api', router)
 
 app.use(errorHandler)
+
+const distPath = path.resolve(`${__dirname}/../../public`)
+console.log(distPath)
+const indexPath = path.join(distPath, 'index.html')
 
 switch (environment) {
   case 'development':
@@ -63,18 +67,14 @@ switch (environment) {
       res.sendFile(path.resolve(`${__dirname}/../api-docs.json`))
     })
 
-    app.get('*', (req, res) => {
-      const memoryFs = compiler.outputFileSystem
-      const index = path.join(webpackConfig.output.path, 'index.html')
-      const html = memoryFs.readFileSync(index)
+    app.use(express.static(distPath))
 
-      res.end(html)
+    app.get('*', (req, res) => {
+      res.sendfile(indexPath)
     })
 
     break
   default:
-    const distPath = path.resolve(`${__dirname}/../public`)
-    const indexPath = path.join(distPath, 'index.html')
     app.use(compression())
     app.use(express.static(distPath))
 
@@ -84,7 +84,6 @@ switch (environment) {
 
     break
 }
-
 
 app.listen(port, () => {
   console.log('About to crank up node')

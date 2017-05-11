@@ -1,1 +1,1 @@
-export default jest.genMockFromModule('request-promise-native')
+export default jest.genMockFromModule('fetch-promise-native')

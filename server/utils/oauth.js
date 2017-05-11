@@ -1,6 +1,6 @@
 /* eslint camelcase: 0 */
 import config from '../config'
-import request from 'request-promise-native'
+import fetch from 'isomorphic-fetch'
 import jwt from 'jsonwebtoken'
 import users from './users'
 import uuid from 'uuid'
@@ -34,23 +34,27 @@ export default () => {
         throw Error
       }
       const headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded'
       }
-      const form = {
-        client_id,
-        redirect_uri,
+      const params = {
         code: query.code,
+        client_id,
         client_secret,
+        redirect_uri,
         grant_type
       }
+
+      const body = Object.keys(params)
+        .map((key) => `${key}=${params[key]}`)
+        .join('&')
+
       const options = {
-        url: tokenUrl,
         method: 'POST',
         headers,
-        form
+        body
       }
-      const data = await request(options)
-      const { error, id_token, expires_in, access_token } = JSON.parse(data)
+      const resp = await fetch(tokenUrl, options)
+      const { error, id_token, expires_in, access_token } = await resp.json()
       if (error || !access_token) {
         throw error
       }
