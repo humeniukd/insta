@@ -1,4 +1,4 @@
-import mockedRequest from 'request-promise-native'
+import mockedFetch from 'isomorphic-fetch'
 import config from '../config'
 import oauth from './oauth'
 import mockedUsers from './users'
@@ -7,8 +7,8 @@ jest.mock('./users')
 
 describe('Oauth session handling', () => {
   const email = 'doe@example.com'
-  const accessToken = '6goz71I7dTgU'
-  const idToken = 'eyJhbGciOiJIUzI1NiJ9.e30.XmNK3GpH3Ys_7wsYBfq4C3M6goz71I7dTgUkuIa5lyQ'
+  const access_token = '6goz71I7dTgU'
+  const id_token = 'eyJhbGciOiJIUzI1NiJ9.e30.XmNK3GpH3Ys_7wsYBfq4C3M6goz71I7dTgUkuIa5lyQ'
   let authService, req, res
 
   beforeEach(() => {
@@ -21,7 +21,9 @@ describe('Oauth session handling', () => {
     }
     res = {
       writeHead: jest.fn(),
-      end: jest.fn()
+      end: jest.fn(),
+      cookie: jest.fn(),
+      redirect: jest.fn()
     }
   })
 
@@ -44,9 +46,9 @@ describe('Oauth session handling', () => {
   })
   it('should handle redirect', async () => {
     req.url = config.callbackUrl
-    mockedRequest.mockReturnValueOnce(`{"access_token":"${accessToken}","id_token":"${idToken}"}`)
+    mockedFetch.mockReturnValueOnce({ json: () => ({ access_token, id_token }) })
     await authService(req, res)
-    expect(mockedRequest.mock.calls.length).toBe(1)
-    expect(mockedUsers.set.mock.calls[0][1]['access_token']).toBe(accessToken)
+    expect(mockedFetch.mock.calls.length).toBe(1)
+    expect(mockedUsers.set.mock.calls[0][1]['access_token']).toBe(access_token)
   })
 })

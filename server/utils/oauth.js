@@ -23,6 +23,7 @@ export default () => {
     } = config
 
     const isStatic = (url) => staticRegexp.test(url)
+    const preparePrams = (params) => Object.keys(params).map((key) => `${key}=${params[key]}`).join('&')
 
     async function retrieveSessionId (req) {
       const { url, query, cookies } = req
@@ -44,9 +45,7 @@ export default () => {
         grant_type
       }
 
-      const body = Object.keys(params)
-        .map((key) => `${key}=${params[key]}`)
-        .join('&')
+      const body = preparePrams(params)
 
       const options = {
         method: 'POST',
@@ -73,7 +72,7 @@ export default () => {
       scope
     }
 
-    const authQuery = Object.keys(authParams).map((key) => `${key}=${authParams[key]}`).join('&')
+    const authQuery = preparePrams(authParams)
     const authFullUrl = `${authUrl}?${authQuery}`
 
     if (isStatic(req.url)) {
