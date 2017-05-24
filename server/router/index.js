@@ -1,16 +1,12 @@
-import { fourHundredFour } from '../utils';
-import Router from 'express/lib/router';
-import CarsRouter from './cars';
+import { fourHundredFour } from '../utils'
+import Router from 'express/lib/router'
+import CarsRouter from './cars'
+import RenderRouter from './render'
 
-let router = new Router();
+let router = new Router()
 
-// *** just for debug *** //
-router.get('/ping', (req, res) => {
-  res.status(200).send('pong');
-});
+router.use('/api', CarsRouter)
 
-router.use('/cars', CarsRouter);
+router.get('*', RenderRouter)
 
-router.get('/*', fourHundredFour);
-
-export default router;
+export default router

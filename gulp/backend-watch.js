@@ -1,7 +1,7 @@
 import gulp from 'gulp'
 import webpack from 'webpack'
 import nodemon from 'nodemon'
-import config from '../webpack.backend.config'
+import config from '../webpack.backend'
 
 gulp.task('backend-watch', (done) => {
   let isFiredDone = false

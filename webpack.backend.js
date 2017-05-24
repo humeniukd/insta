@@ -1,13 +1,16 @@
+import fs from 'fs'
 import path from 'path'
-import nodeExternals from 'webpack-node-externals'
 
 export default {
   entry: './server/app.js',
   target: 'node',
-  externals: [nodeExternals()],
+  externals: fs.readdirSync(path.resolve(__dirname, 'node_modules')).reduce((ext, mod) => {
+    ext[mod] = 'commonjs ' + mod
+    return ext
+  }, {}),
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'backend.js'
+    filename: 'app.js'
   },
   module: {
     loaders: [
@@ -16,8 +19,8 @@ export default {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'es2017'],
-          plugins: ['transform-runtime']
+          presets: ['es2015', 'react'],
+          plugins: ['transform-runtime', 'transform-async-to-generator', 'transform-object-rest-spread', 'transform-class-properties']
         }
       }
     ]

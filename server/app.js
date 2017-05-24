@@ -2,7 +2,7 @@ import express from 'express'
 import logger from 'morgan'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
-import { errorHandler } from './utils'
+import { errorHandler, cors } from './utils'
 import oauth from './utils/oauth'
 import router from './router'
 import config from './config'
@@ -21,15 +21,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(logger('dev'))
-
-app.use(oauth())
-
-app.use('/api', router)
+app.use(cors)
 
 app.use(errorHandler)
 
 const distPath = path.resolve(`${__dirname}/../../public`)
-console.log(distPath)
+
 const indexPath = path.join(distPath, 'index.html')
 
 switch (environment) {
@@ -57,33 +54,20 @@ switch (environment) {
 
     app.use(webpackHotMiddelware(compiler))
 
-    app.use(express.static(path.resolve(`${__dirname}/../node_modules/swagger-ui/dist`)))
-
-    app.get('/swagger', (req, res) => {
-      res.sendFile(path.resolve(`${__dirname}/../node_modules/swagger-ui/dist/index.html`))
-    })
-
-    app.get('/api-docs.json', (req, res) => {
-      res.sendFile(path.resolve(`${__dirname}/../api-docs.json`))
-    })
-
-    app.use(express.static(distPath))
-
-    app.get('*', (req, res) => {
-      res.sendfile(indexPath)
-    })
-
     break
   default:
     app.use(compression())
+    app.use(oauth())
     app.use(express.static(distPath))
 
     app.get('*', (req, res) => {
-      res.sendfile(indexPath)
+      res.sendFile(indexPath)
     })
 
     break
 }
+
+app.use('/', router)
 
 app.listen(port, () => {
   console.log('About to crank up node')

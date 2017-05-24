@@ -1,7 +1,7 @@
 import webpack from 'webpack'
 export default {
   entry: [
-    '../client/src/index.js'
+    './client/index.js'
   ],
   output: {
     path: `/`,
@@ -21,8 +21,8 @@ export default {
       loader: 'babel',
       exclude: /node_modules/,
       query: {
-        presets: ['es2015', 'es2017', 'react'],
-        plugins: ['transform-object-rest-spread', 'transform-class-properties']
+        presets: ['es2015', 'react'],
+        plugins: ['transform-runtime', 'transform-object-rest-spread', 'transform-class-properties', 'transform-async-to-generator']
       }
     }]
   },

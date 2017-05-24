@@ -6,8 +6,4 @@
  * @example
  *   router.get('/path', wrap(routeHandler));
  */
-export default (fn) => {
-  return (req, res, next) => {
-    return fn(req, res, next).catch(next)
-  }
-}
+export default (fn) => async (req, res, next) => res.send(await fn(req, res, next).catch(next))

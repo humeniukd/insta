@@ -10,7 +10,7 @@ describe('Helper: Error Handler Wrapper', () => {
     const fn = () => Promise.resolve()
     const next = jest.fn()
     const wrapped = wrap(fn)
-    await wrapped({}, {}, next)
+    await wrapped({}, {send: jest.fn()}, next)
     expect(next.mock.calls.length).toBe(0)
   })
 
@@ -19,7 +19,7 @@ describe('Helper: Error Handler Wrapper', () => {
     const next = jest.fn()
     const wrapped = wrap(fn)
 
-    return wrapped({}, {}, next)
+    return wrapped({}, {send: () => ({catch: fn => fn()})}, next)
     expect(next.mock.calls.length).toBe(1)
   })
 })

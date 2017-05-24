@@ -7,9 +7,9 @@ gulp.task('docs-generate', (callback) => {
   const options = {
     swaggerDefinition: {
       info: {
-        title: 'InstantCar',
+        title: 'InstaCar',
         version: 'v1',
-        description: 'Sample App'
+        description: 'Simple App'
       },
       basePath: '/api',
       tags: [{

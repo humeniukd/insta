@@ -1,16 +1,22 @@
 import uuid from 'uuid'
 import { makes, models } from '../../common'
+import { NotFoundError } from './errors'
+
 const data = {}
 
 const maxMileage = 300000
 const maxPrice = 30000
 const itemsCount = 10000
 
+const arr = [
+  { type: 'a3', address: 'WAUZZZ8V4E1040274'}
+]
+
 const imgs = {
   A3: (n) => `https://cdn-carpics.instamotion.com/WAUZZZ8V4E1040274/gallery/image_0${n}.jpg`,
   A4: (n) => `https://cdn-carpics.instamotion.com/WAUZZZ8K6EA075274/gallery/image_0${n}.jpg`,
   A5: (n) => `https://cdn-carpics.instamotion.com/WAUZZZ8T0GA012845/gallery/image_0${n}.jpg`,
-  'Series 3': (n) => `https://cdn-carpics.instamotion.com/WBA3Z91050D367116/gallery/image_0${n}.jpg`,
+  Series3: (n) => `https://cdn-carpics.instamotion.com/WBA3Z91050D367116/gallery/image_0${n}.jpg`,
   X3: (n) => `https://cdn-carpics.instamotion.com/WBAWZ510700M24445/gallery/image_0${n}.jpg`,
   M3: (n) => `https://cdn-carpics.instamotion.com/WBS8M910505D80493/gallery/image_0${n}.jpg`,
   Corsa: (n) => `https://cdn-carpics.instamotion.com/W0L0XEP08G6081741/gallery/image_0${n}.jpg`,
@@ -40,7 +46,12 @@ while (i++ < itemsCount) {
   }
 }
 
-export default (criteria, options) => {
+export const paramsToPath = (params) => {
+  const { model, make } = params
+  return [model, make].filter(Boolean).join('/')
+}
+
+export const list = async (criteria, options = {}) => {
   const items = Object.values(data)
   const { make, model, mileage, price } = criteria
   const { start = 0, limit = 10, sort = {price: 1} } = options
@@ -56,5 +67,14 @@ export default (criteria, options) => {
 
   return items.filter(item => conditions.every(fn => fn(item)))
     .sort((a, b) => sortOrder ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy])
-    .slice(start, start + limit)
+    .slice(start, start + limit).reduce((res, item) => ({ ...res, [item.id]: item }), {})
+}
+
+const notFound = () => { throw new NotFoundError() }
+
+export const get = async id => data[id] || notFound()
+
+export default {
+  list,
+  get
 }

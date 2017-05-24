@@ -1,6 +1,6 @@
 import gulp from 'gulp'
 import webpack from 'webpack'
-import config from '../webpack.backend.config'
+import config from '../webpack.backend'
 
 gulp.task('build-backend', (done) => {
   webpack(config).run(onBuild(done))

@@ -7,7 +7,7 @@ gulp.task('serve', ['backend-watch'], () => {
     execMap: {
       js: 'node'
     },
-    script: path.join(__dirname, '../build/backend'),
+    script: path.join(__dirname, '../build/app'),
     ignore: ['*'],
     watch: ['nonexistent/'],
     ext: 'nonexistent'

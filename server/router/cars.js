@@ -1,5 +1,5 @@
 import Router from 'express/lib/router'
-import { CarsController } from '../controllers/cars'
+import { cars as Cars } from '../controllers'
 import { cars } from './routes'
 import { errorHandlerWrapper } from '../utils'
 
@@ -7,46 +7,33 @@ const router = new Router()
 
 /**
  * @swagger
- * /categories:
- *   get:
- *     tags:
- *       - Category
- *     description: Getting all Category
- *     operationId: getCategory
- *     consumes:
- *       - application/json
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: skip
- *         in: query
- *         description: Amount of skip result
- *         type: integer
- *       - name: limit
- *         in: query
- *         description: Limit of result
- *         type: integer
- *       - name: name
- *         in: query
- *         description: Category name
+ * definition:
+ *   Car:
+ *     type: object
+ *     properties:
+ *       id:
  *         type: string
- *     responses:
- *       200:
- *         description: 'successful operation'
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Category'
+ *       model:
+ *         type: string
+ *       make:
+ *         type: string
+ *       mileage:
+ *         type: integer
+ *       img:
+ *         type: string
+ *       price:
+ *         type: integer
+ *       reserved:
+ *         type: boolean
  */
-router.get(cars.list, errorHandlerWrapper(CarsController.list))
 
 /**
  * @swagger
- * /categories/{id}:
+ * /cars/{id}:
  *   get:
  *     tags:
- *       - Category
- *     description: Get Category by ID
+ *       - Car
+ *     description: Get Car by ID
  *     operationId: all
  *     consumes:
  *       - application/json
@@ -55,25 +42,25 @@ router.get(cars.list, errorHandlerWrapper(CarsController.list))
  *     parameters:
  *       - name: id
  *         in: path
- *         description: ID of Category
+ *         description: ID of Car
  *         required: true
  *         schema:
- *           $ref: '#/definitions/Category'
+ *           $ref: '#/definitions/Car'
  *     responses:
  *       200:
  *         description: 'successful operation'
  *         schema:
- *           $ref: '#/definitions/Category'
+ *           $ref: '#/definitions/Car'
  */
-router.get(cars.get, errorHandlerWrapper(CarsController.get))
+router.get(cars.get, errorHandlerWrapper(Cars.get))
 
 /**
  * @swagger
- * /categories/{id}:
- *   delete:
+ * /cars/{id}:
+ *   post:
  *     tags:
- *       - Category
- *     description: Delete Category
+ *       - Car
+ *     description: Delete Car
  *     operationId: delete
  *     consumes:
  *       - application/json
@@ -89,6 +76,37 @@ router.get(cars.get, errorHandlerWrapper(CarsController.get))
  *       200:
  *         description: 'successful operation'
  */
-router.delete(cars.reserve, errorHandlerWrapper(CarsController.reserve))
+router.post(cars.reserve, errorHandlerWrapper(Cars.reserve))
+
+/**
+ * @swagger
+ * /cars:
+ *   get:
+ *     tags:
+ *       - Car
+ *     description: Getting all cars
+ *     operationId: getCars
+ *     consumes:
+ *       - application/json
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: skip
+ *         in: query
+ *         description: Amount of skip result
+ *         type: integer
+ *       - name: limit
+ *         in: query
+ *         description: Limit of result
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: 'successful operation'
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/Car'
+ */
+router.get(cars.list, errorHandlerWrapper(Cars.list))
 
 export default router
