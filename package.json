@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "git@github.com:loudyo/insta.git",
   "scripts": {
-    "postinstall": "gulp build",
+    "postinstall": "gulp build && gulp docs",
     "start": "NODE_ENV=production node ./build/app.js",
     "test": "jest",
     "serve": "gulp serve",
