@@ -1,4 +1,4 @@
-import { cars } from '../utils'
+import { cars, mailer as send } from '../utils'
 import { format, parse } from 'url'
 
 const buildCriteria = ({price, mileage}, defaults = {}) => {
@@ -45,6 +45,11 @@ const reserve = async (req) => {
   const id = req.params.id
   const car = await cars.get(id)
   car.reserved = Boolean(req.body.reserved)
+  try {
+    await send(car, req.user)
+  } catch (err) {
+    console.log(err)
+  }
   return { id }
 }
 

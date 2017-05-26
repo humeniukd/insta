@@ -60,7 +60,6 @@ const renderFullPage = (html, preloadedState) => {
         <div id="root">${html}</div>
         <script>
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\x3c')}
-          window.process = ${JSON.stringify({env: {NODE_ENV: process.env.NODE_ENV}})}
         </script>
         <script src="/vendor.js"></script>
         <script src="/main.js"></script>

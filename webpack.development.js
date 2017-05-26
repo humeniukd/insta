@@ -5,6 +5,6 @@ const { plugins, output } = config
 
 export default { ...config,
   devtool: 'eval',
-  plugins: [ plugins[0], new webpack.HotModuleReplacementPlugin() ],
+  plugins: [ ...plugins.slice(0, -1), new webpack.HotModuleReplacementPlugin() ],
   output: { ...output, path: '/' }
 }

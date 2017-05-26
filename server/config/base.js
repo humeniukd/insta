@@ -7,9 +7,19 @@ const callbackUrl = '/oauth2callback'
 const staticRegexp = /\.([0-9a-z]+)(?:[?#]|$)/i
 const scope = 'email%20profile'
 const sessionIdKey = 'x-access-token'
+const email = 'instantcarz@gmail.com'
+const smtp = {
+  service: 'Gmail',
+  auth: {
+    user: email,
+    pass: 'a24891792a'
+  }
+};
 
 const config = {
   authUrl,
+  email,
+  smtp,
   tokenUrl,
   client_secret,
   scope,

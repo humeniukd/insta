@@ -24,6 +24,7 @@ app.use(logger(environment))
 app.use(cors())
 
 app.use(errorHandler)
+app.use(oauth())
 
 switch (environment) {
   case 'development':
@@ -54,7 +55,6 @@ switch (environment) {
   default:
     app.use(compression())
     app.use(express.static(webpackConfig.output.path))
-    app.use(oauth())
     break
 }
 

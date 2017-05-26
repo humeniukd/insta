@@ -15,6 +15,9 @@ export default {
         return module.resource && module.resource.indexOf('node_modules')
       }
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+    }),
     new webpack.optimize.UglifyJsPlugin({
       output: {comments: false},
       compress: {
