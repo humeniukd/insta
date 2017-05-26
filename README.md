@@ -1,10 +1,8 @@
 # Cars App
 
-An app for car reservation.
+An simple app for car reservation.
 
-# Technical
-
-## Key technologies used
+## Technologies used
 
 * Node 6.x with ES6 (back end).
 * React/Redux with ES6 + Babel (front end).
