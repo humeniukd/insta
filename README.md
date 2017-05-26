@@ -22,7 +22,7 @@ Clone the repository and run `npm install`.
 Run `npm start` - production, `npm run serve` - development
 
 * app <http://localhost:8000/>
-* swagger <http://petstore.swagger.io/?url=http://localhost:8000/api-docs.json>, <http://localhost:8000/api-docs.json>
+* swagger <http://petstore.swagger.io/?url=http://instacar.herokuapp.com/api-docs.json>
 
 ## Tasks
 * Unit tests for client: `npm test`
