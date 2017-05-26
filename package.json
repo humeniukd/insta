@@ -6,7 +6,7 @@
   "repository": "git@github.com:loudyo/insta.git",
   "scripts": {
     "postinstall": "gulp build",
-    "start": "PORT=8000 DEBUG=express:* NODE_ENV=production node ./build/app.js",
+    "start": "NODE_ENV=production node ./build/app.js",
     "test": "jest",
     "serve": "gulp serve",
     "docs": "gulp docs",

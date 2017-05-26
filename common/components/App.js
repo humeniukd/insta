@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
-import withWidth, { SMALL } from 'material-ui/utils/withWidth'
+import withWidth from 'material-ui/utils/withWidth'
 import Drawer from 'material-ui/Drawer'
 import getStyles from '../../client/css'
 import { Cars, Car } from '../containers'
@@ -20,7 +20,7 @@ class App extends React.Component {
     this.state = { isOpen: false }
   }
 
-  handleToggle = () => this.setState({isOpen: !this.state.isOpen});
+  handleToggle = () => this.setState({isOpen: !this.state.isOpen})
 
   render() {
     const { width } = this.props
