@@ -30,7 +30,7 @@ while (i++ < itemsCount) {
   const model = makeModels[rnd(makeModels.length)]
   const img = imgs[model](rnd(4, 1))
   const mileage = rnd(maxMileage)
-  const price = rnd(maxPrice)
+  const price = rnd(maxPrice * 2, maxPrice)
   data[id] = {
     id,
     make,

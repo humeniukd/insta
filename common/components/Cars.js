@@ -21,15 +21,15 @@ const Cars = ({items, next, prev, onPagination, handleSearch, params, query, sty
   <div style={styles.wrapper}>
     {make && <Chip style={styles.chip} onRequestDelete={deleteChip('make')} backgroundColor={lightBlue600}>{make}</Chip>}
     {model && <Chip style={styles.chip} onRequestDelete={deleteChip('model')} backgroundColor={blue300}>{model}</Chip>}
-    {price && <Chip style={styles.chip} onRequestDelete={deleteChip('price')} backgroundColor={amber300}>{price}$</Chip>}
-    {mileage && <Chip style={styles.chip} onRequestDelete={deleteChip('mileage')} backgroundColor={lightGreen600}>{mileage}km</Chip>}
+    {price && <Chip style={styles.chip} onRequestDelete={deleteChip('price')} backgroundColor={amber300}>{price} &euro;</Chip>}
+    {mileage && <Chip style={styles.chip} onRequestDelete={deleteChip('mileage')} backgroundColor={lightGreen600}>{mileage} miles</Chip>}
     <div style={styles.grid}>
       <GridList cellHeight={styles.grid.cellHeight}>
         {items.map((item) => (
           <GridTile
             key={item.id}
             title={`${item.make} ${item.model}`}
-            subtitle={<span>{item.mileage} miles  - <b>{item.price}$</b></span>}
+            subtitle={<span>{item.mileage} miles  - <b>{item.price}&euro;</b></span>}
             actionIcon={<Link to={`/${item.id}`}><IconButton><NavigationMoreHoriz color="white" /></IconButton></Link>}
           >
             <img src={item.img} />

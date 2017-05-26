@@ -32,7 +32,7 @@ export default async (car, user) => {
     }),
     icalEvent: {
       method: 'request',
-      content: `BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nDTSTART:${startDateTs}Z\r\nDTEND:${startDateTs}Z\r\nDESCRIPTION:${event.description}\r\nSUMMARY:${event.title}\r\nORGANIZER CN="Car App":mailto:${config.email}\r\nLocation:${event.locationName}\r\nUID:${uid}\r\nSEQUENCE:0\r\nDTSTAMP:${dtStamp}Z\r\nBEGIN:VALARM\r\nTRIGGER:-PT1H\r\nACTION:DISPLAY\r\nDESCRIPTION:Reminder\r\nEND:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR`
+      content: `BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nDTSTART:${startDateTs}Z\r\nDTEND:${startDateTs}Z\r\nDESCRIPTION:${event.description}\r\nSUMMARY:${event.title}\r\nORGANIZER;CN=John Doe:mailto:${config.email}\r\nLocation:${event.locationName}\r\nUID:${uid}\r\nSEQUENCE:0\r\nDTSTAMP:${dtStamp}Z\r\nBEGIN:VALARM\r\nTRIGGER:-PT1H\r\nACTION:DISPLAY\r\nDESCRIPTION:Reminder\r\nEND:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR`
     }
   }
   const transporter = nodemailer.createTransport(config.smtp)

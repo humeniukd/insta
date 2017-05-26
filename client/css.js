@@ -28,7 +28,7 @@ export default (width) => ({
     flexWrap: 'wrap'
   },
   input: {
-    width: 140,
+    width: 160,
     fontSize: 20
   },
   row: {

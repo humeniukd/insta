@@ -10,7 +10,7 @@ export default ({item, onReserve, history}) => (
       subtitle={item.model}
     />
     <CardMedia
-      overlay={<CardTitle title={`${item.price}$`} subtitle={`${item.mileage}km`} />}
+      overlay={<CardTitle title={`${item.price} euro`} subtitle={`${item.mileage} miles`} />}
     >
       <img src={item.img} />
     </CardMedia>

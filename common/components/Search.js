@@ -33,13 +33,13 @@ export default ({handleSearch, query, styles}) => {
       </List>
       <div>
         <div style={styles.row}>
-          <Input style={styles.input} type="number" hintText="price" name="price"
+          <Input style={styles.input} type="number" hintText="price max" name="price"
                  value={price} onChange={inputHandler}
           />
           <ActionEuroSymbol/>
         </div>
         <div style={styles.row}>
-          <Input style={styles.input} type="number" hintText="mileage" name="mileage"
+          <Input style={styles.input} type="number" hintText="mileage max" name="mileage"
             value={mileage} onChange={inputHandler}
           />
           <AvAvTimer/>
