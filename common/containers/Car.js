@@ -17,7 +17,7 @@ class CarContainer extends Component {
     this.setState({ snack: false, popup: true });
   }
   handleClose = () => {
-    this.setState({ snack: true, popup: false });
+    this.setState({ snack: false, popup: false });
   }
   static propTypes = {
     item: PropTypes.object.isRequired
@@ -31,7 +31,7 @@ class CarContainer extends Component {
   handleReserveClick = e => {
     const { item, reserveItem } = this.props
     reserveItem(item.id)
-    this.handleClose();
+    this.setState({ snack: true, popup: false });
   }
 
   render() {

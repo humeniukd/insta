@@ -17,6 +17,7 @@ describe('Oauth session handling', () => {
       url: '/data',
       cookies: {},
       query: {},
+      headers: {},
       get: jest.fn()
     }
     res = {
@@ -36,7 +37,7 @@ describe('Oauth session handling', () => {
   it('should get existing session id', async () => {
     mockedUsers.has.mockReturnValueOnce(true)
     mockedUsers.get.mockReturnValueOnce({ email })
-    await authService(req, {}, jest.fn())
+    await authService(req, res, jest.fn())
     expect(req.user.email).toBe(email)
   })
   it('should redirect unauthorized fetch', async () => {

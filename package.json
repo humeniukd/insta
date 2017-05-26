@@ -1,20 +1,21 @@
 {
-  "name": "redux-simple-starter",
+  "name": "instacar",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "Simple App",
   "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "repository": "git@github.com:loudyo/insta.git",
   "scripts": {
-    "build-backend": "gulp build-backend",
-    "docs-generate": "gulp docs-generate",
-    "build": "webpack --config webpack-production.config.js --progress --colors",
-    "start": "NODE_ENV=development gulp serve",
+    "postinstall": "gulp build",
+    "start": "NODE_ENV=production node ./build/app.js",
     "test": "jest",
+    "serve": "gulp serve",
+    "docs": "gulp docs",
+    "clean": "gulp clean",
     "test:watch": "npm test -- --watch"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.18.2",
     "babel-jest": "^20.0.0",
     "babel-loader": "^6.2.8",
@@ -49,10 +50,9 @@
     "uuid": "^3.0.1",
     "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2"
-  },
-  "dependencies": {
+    "webpack-hot-middleware": "^2.12.2",
     "body-parser": "~1.17.1",
+    "cors": "~2.8.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",

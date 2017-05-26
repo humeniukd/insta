@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { credentials } from './'
 export const REQUEST_ITEM = 'REQUEST_ITEM'
 export const RECEIVE_ITEM = 'RECEIVE_ITEM'
 export const RECEIVE_ERROR = 'RECEIVED_ERROR'
@@ -32,7 +33,7 @@ const fetchItem = id => async dispatch => {
   const url = `/api/${id}`
   dispatch(requestItem(id))
   try {
-    const response = await fetch(url)
+    const response = await fetch(url, {credentials})
     const json = await response.json()
     dispatch(receiveItem(json))
   } catch (e) {
@@ -41,15 +42,14 @@ const fetchItem = id => async dispatch => {
 }
 
 export const reserveItem = id => async dispatch => {
-  const url = '/api/reserve'
-  console.log('reserve', id)
+  const url = `/api/reserve/${id}`
   const options = {
-    method: 'POST',
+    credentials,
+    method: 'PUT',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ id })
+    body: JSON.stringify({ reserved: true })
   }
   dispatch(requestItem(id))
   try {

@@ -2,7 +2,7 @@ import gulp from 'gulp'
 import nodemon from 'nodemon'
 import path from 'path'
 
-gulp.task('serve', ['backend-watch'], () => {
+gulp.task('serve', ['watch'], () => {
   return nodemon({
     execMap: {
       js: 'node'

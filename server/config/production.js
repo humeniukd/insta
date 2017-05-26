@@ -1,9 +1,7 @@
-import base from './base';
+import base from './base'
 
-const port = 8443;
+const port = process.env.PORT || 80
 
-const config = Object.assign({}, base, {
-  port
-});
+const config = { ...base, port }
 
-export default config;
+export default config

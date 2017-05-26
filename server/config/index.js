@@ -1,5 +1,5 @@
-import process from 'process'
+import base from './base'
+import development from './development'
+import production from './production'
 
-const config = require(`./${process.env.NODE_ENV || 'development'}`)
-
-export default config.default
+export default { development, production, test: base }[ process.env.NODE_ENV || 'development' ]

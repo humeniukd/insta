@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import filters from './filters'
-import items from './items'
-import item from './item'
+import filters from './filters.js'
+import items from './items.js'
+import item from './item.js'
 
 export { filters, items, item }
 

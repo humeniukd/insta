@@ -4,5 +4,5 @@ const REGEX = '[0-9A-z]+'
 export const cars = {
   list: `/:make(${REGEX})?/:model(${REGEX})?`,
   get: `/:id(${IDREGEX})`,
-  reserve: `/reserve`
+  reserve: `/reserve/:id(${IDREGEX})`
 }

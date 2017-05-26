@@ -41,10 +41,10 @@ const get = async (req) => {
   return car
 }
 
-const reserve = async (req, res) => {
-  const id = req.body.id
+const reserve = async (req) => {
+  const id = req.params.id
   const car = await cars.get(id)
-  car.reserved = true
+  car.reserved = Boolean(req.body.reserved)
   return { id }
 }
 

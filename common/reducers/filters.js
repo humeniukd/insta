@@ -51,7 +51,6 @@ export const setMetadata = (state = {
 const getNexts = (state, filter, acc = []) => {
   acc = [ ...acc, filter ]
   const { next } = state[filter] || {}
-  console.log('getNexts', state, next, acc)
   return next ? getNexts(state, next, acc) : acc
 }
 

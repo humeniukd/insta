@@ -4,7 +4,7 @@ export default {
     './client/index.js'
   ],
   output: {
-    path: `/`,
+    path: `public/`,
     publicPath: '/',
     filename: '[name].js'
   },
@@ -13,6 +13,12 @@ export default {
       name: 'vendor',
       minChunks: (module, count) => {
         return module.resource && module.resource.indexOf('node_modules')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      output: {comments: false},
+      compress: {
+        warnings: false
       }
     })
   ],

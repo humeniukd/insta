@@ -2,13 +2,14 @@ import express from 'express'
 import logger from 'morgan'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
-import { errorHandler, cors } from './utils'
+import cors from 'cors'
+import { errorHandler } from './utils'
 import oauth from './utils/oauth'
 import router from './router'
 import config from './config'
-import path from 'path'
 import compression from 'compression'
-import webpackConfig from '../webpack.dev.config'
+import webpackDevConfig from '../webpack.development'
+import webpackConfig from '../webpack.config'
 import webpack from 'webpack'
 import webpackHotMiddelware from 'webpack-hot-middleware'
 import webpackDevMiddelware from 'webpack-dev-middleware'
@@ -17,26 +18,21 @@ const app = express()
 const environment = process.env.NODE_ENV || 'development'
 const { port } = config
 
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser())
-app.use(logger('dev'))
-app.use(cors)
+app.use(logger(environment))
+app.use(cors())
 
 app.use(errorHandler)
 
-const distPath = path.resolve(`${__dirname}/../../public`)
-
-const indexPath = path.join(distPath, 'index.html')
-
 switch (environment) {
   case 'development':
-    webpackConfig.entry = [
+    webpackDevConfig.entry = [
       'webpack-hot-middleware/client?reload=true',
-      ...webpackConfig.entry
+      ...webpackDevConfig.entry
     ]
 
-    const compiler = webpack(webpackConfig)
+    const compiler = webpack(webpackDevConfig)
 
     app.use(webpackDevMiddelware(compiler, {
       hot: true,
@@ -44,7 +40,7 @@ switch (environment) {
       quiet: true,
       lazy: false,
       watchOptions: { aggregateTimeout: 300 },
-      publicPath: webpackConfig.output.publicPath,
+      publicPath: webpackDevConfig.output.publicPath,
       stats: {
         colors: true,
         chunks: false,
@@ -57,13 +53,8 @@ switch (environment) {
     break
   default:
     app.use(compression())
+    app.use(express.static(webpackConfig.output.path))
     app.use(oauth())
-    app.use(express.static(distPath))
-
-    app.get('*', (req, res) => {
-      res.sendFile(indexPath)
-    })
-
     break
 }
 

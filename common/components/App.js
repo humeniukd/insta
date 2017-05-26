@@ -30,7 +30,8 @@ class App extends React.Component {
         <div>
           <AppBar style={styles.appBar} onLeftIconButtonTouchTap={this.handleToggle} title="Cars App" />
           <div style={styles.root}>
-            <Drawer open={this.state.isOpen} containerStyle={styles.drawer}>
+            <Drawer open={this.state.isOpen} containerStyle={styles.drawer} docked={false} onRequestChange={(isOpen) => this.setState({isOpen})}>
+              <h1 style={styles.drawer}>Select</h1>
               <Search styles={styles} {...this.props}/>
             </Drawer>
             <Switch>

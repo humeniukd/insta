@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { credentials } from './'
 export const REQUEST_ITEMS = 'REQUEST_ITEMS'
 export const RECEIVE_ITEMS = 'RECEIVE_ITEMS'
 export const RECEIVE_ERROR = 'RECEIVE_ERROR'
@@ -36,7 +37,7 @@ const fetchItems = filter => async dispatch => {
   const url = `/api${filter}`
   dispatch(requestItems(filter))
   try {
-    const response = await fetch(url)
+    const response = await fetch(url, {credentials})
     const json = await response.json()
     dispatch(receiveItems(filter, json))
   } catch (e) {

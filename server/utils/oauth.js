@@ -13,7 +13,7 @@ export default () => {
       callbackUrl,
       client_secret,
       redirect_uri = `${resource}${callbackUrl}`,
-      sessionIdCookieName = 'x-access-token',
+      sessionIdKey,
       scope,
       authUrl,
       tokenUrl,
@@ -25,20 +25,24 @@ export default () => {
     const isStatic = (url) => staticRegexp.test(url)
     const preparePrams = (params) => Object.keys(params).map((key) => `${key}=${params[key]}`).join('&')
 
-    async function retrieveSessionId (req) {
-      const { url, query, cookies } = req
-      const sessionId = cookies[sessionIdCookieName]
+    const retrieveSessionId = async (req) => {
+      const { url, query, cookies, headers } = req
+      const sessionId = cookies[sessionIdKey] || headers[sessionIdKey]
       if (users.has(sessionId)) {
         req.user = users.get(sessionId)
         return
       } else if (!url.includes(callbackUrl)) {
         throw Error
       }
+      await fetchUser(query.code)
+    }
+
+    const fetchUser = async (code) => {
       const headers = {
         'content-type': 'application/x-www-form-urlencoded'
       }
       const params = {
-        code: query.code,
+        code,
         client_id,
         client_secret,
         redirect_uri,
@@ -60,8 +64,9 @@ export default () => {
       const { name, email } = jwt.decode(id_token)
       const id = uuid()
       const expires = new Date(Date.now() + expires_in * 1000)
-      users.set(id, { id, name, email, expires, access_token })
-      res.cookie(sessionIdCookieName, id, { expires })
+      const user = { id, name, email, expires, access_token }
+      users.set(id, user)
+      res.cookie(sessionIdKey, id, { expires })
       res.redirect('/')
     }
 

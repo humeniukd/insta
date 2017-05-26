@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { parse } from 'querystring'
 import { format } from 'url'
-import path from 'path'
 
 import App from '../components/App'
 
