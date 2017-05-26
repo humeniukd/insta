@@ -8,18 +8,27 @@ const maxMileage = 300000
 const maxPrice = 30000
 const itemsCount = 10000
 
-const pad = (n) => `0${n}`.slice(-2)
+const imgs = {
+  A3: (n) => `https://cdn-carpics.instamotion.com/WAUZZZ8V4E1040274/gallery/image_0${n}.jpg`,
+  A4: (n) => `https://cdn-carpics.instamotion.com/WAUZZZ8K6EA075274/gallery/image_0${n}.jpg`,
+  A5: (n) => `https://cdn-carpics.instamotion.com/WAUZZZ8T0GA012845/gallery/image_0${n}.jpg`,
+  Series3: (n) => `https://cdn-carpics.instamotion.com/WBA3Z91050D367116/gallery/image_0${n}.jpg`,
+  X3: (n) => `https://cdn-carpics.instamotion.com/WBAWZ510700M24445/gallery/image_0${n}.jpg`,
+  M3: (n) => `https://cdn-carpics.instamotion.com/WBS8M910505D80493/gallery/image_0${n}.jpg`,
+  Corsa: (n) => `https://cdn-carpics.instamotion.com/W0L0XEP08G6081741/gallery/image_0${n}.jpg`,
+  Meriva: (n) => `https://cdn-carpics.instamotion.com/W0LSD9EN6G4205667/gallery/image_0${n}.jpg`,
+  Insignia: (n) => `https://cdn-carpics.instamotion.com/W0LGT6E19G1007333/gallery/image_0${n}.jpg`
 
-const genImg = (make, model, n) => `/${make.toLowerCase()}-${model.toLowerCase()}_${pad(n)}.png`
+}
 
 const rnd = (max, min = 0) => Math.floor(Math.random() * (max - min)) + min
 let i = 0
 while (i++ < itemsCount) {
   const id = uuid()
   const make = makes[rnd(makes.length)]
-  const modelsOfMake = models[make]
-  const model = modelsOfMake[rnd(modelsOfMake.length)]
-  const img = genImg(make, model, rnd(12, 1))
+  const makeModels = models[make]
+  const model = makeModels[rnd(makeModels.length)]
+  const img = imgs[model](rnd(4, 1))
   const mileage = rnd(maxMileage)
   const price = rnd(maxPrice)
   data[id] = {
@@ -32,7 +41,6 @@ while (i++ < itemsCount) {
     reserved: false
   }
 }
-
 export const paramsToPath = (params) => {
   const { model, make } = params
   return [model, make].filter(Boolean).join('/')
