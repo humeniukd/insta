@@ -1,11 +1,7 @@
-/* jscs:disable requireCamelCaseOrUpperCaseIdentifiers */
-/* jshint camelcase: false */
-import base from './base';
+import base from './base'
 
-const port = 8000;
+const port = 8000
 
-const config = Object.assign({}, base, {
-  port
-});
+const config = { ...base, port }
 
-export default config;
+export default config

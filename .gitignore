@@ -6,6 +6,5 @@ node_modules
 npm-debug*
 .settings
 *.log
-public/
 build/
 api-docs.json
