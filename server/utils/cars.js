@@ -8,7 +8,7 @@ const maxMileage = 300000
 const maxPrice = 30000
 const itemsCount = 10000
 
-const genImg = (make, model, n) => `img/${make}/${model}/${n}.jpg`
+const genImg = (make, model, n) => `/img/${make}/${model}/${n}.jpg`
 
 const rnd = n => Math.floor(Math.random() * n)
 let i = 0
@@ -19,7 +19,7 @@ while (i++ < itemsCount) {
   const model = modelsOfMake[rnd(modelsOfMake.length)]
   const img = genImg(make, model, rnd(9))
   const mileage = rnd(maxMileage)
-  const price = rnd(maxPrice)
+  const price = rnd(maxPrice) + rnd(maxPrice)
   data[id] = {
     id,
     make,
