@@ -2,7 +2,7 @@
 
 A mobile app for car reservation.
 
-![App in action](preview.jpg)
+![App in action](preview.png)
 
 ## Technologies used
 
