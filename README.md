@@ -1,6 +1,8 @@
 # Cars App
 
-An simple app for car reservation.
+A mobile app for car reservation.
+
+![App in action](preview.jpg)
 
 ## Technologies used
 

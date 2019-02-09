@@ -30,7 +30,7 @@ describe('Oauth session handling', () => {
 
   it('should skip static resource fetch', async () => {
     let nextSpy = jest.fn()
-    req.url = 'http://google.pl'
+    req.url = '/image.png'
     await authService(req, {}, nextSpy)
     expect(nextSpy.mock.calls.length).toBe(1)
   })
